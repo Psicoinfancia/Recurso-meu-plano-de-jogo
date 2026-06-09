@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano da Semana — Página 2</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;background:#f0f4f8;color:#1a1f2e}
+input,textarea{font-family:inherit}
+
+.wk-header{background:#2e7d45;padding:1.5rem 2rem}
+.wk-hdr-logo{text-align:center;margin-bottom:16px}
+.wk-hdr-logo img{height:80px;display:inline-block}
+.wk-badge{background:#ffd600;color:#000;font-weight:800;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:4px}
+.wk-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.wk-field label{display:block;font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.9);margin-bottom:5px;font-weight:800}
+.wk-field input{width:100%;background:rgba(255,255,255,.95);border:2px solid rgba(255,255,255,.5);border-radius:8px;padding:8px 12px;color:#0d2e1a;font-size:13px;font-weight:600;outline:none}
+.wk-field input::placeholder{color:#4a7a5a}
+.wk-field input:focus{border-color:#ffd600}
+
+.wk-body{max-width:820px;margin:0 auto;padding:1.5rem}
+.wk-sec{background:#fff;border-radius:14px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);border:1.5px solid #dde3ea}
+.wk-sec-hdr{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:2px solid #eef0f3}
+.wk-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.wk-sec-title{font-size:15px;font-weight:800;color:#1a1f2e;text-transform:uppercase;letter-spacing:.5px}
+.wk-sec-sub{font-size:11px;color:#5a6a7a;margin-left:auto;font-style:italic;font-weight:500}
+.wk-sec-body{padding:16px 18px}
+
+.missao-ta{width:100%;border:2px solid #2e8b57;border-radius:10px;padding:12px 14px;font-size:15px;color:#0d2e1a;background:#f4fbf6;resize:none;min-height:60px;outline:none;font-weight:500}
+.missao-ta::placeholder{color:#5a8a6a;font-style:italic}
+.missao-ta:focus{border-color:#0d6e30;box-shadow:0 0 0 3px rgba(13,110,48,.1)}
+
+.treino-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1.5px solid #eef0f3}
+.treino-row:last-child{border-bottom:none}
+.t-check{width:30px;height:30px;border-radius:8px;border:2.5px solid #2e8b57;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;background:#fff;transition:all .15s;font-size:0}
+.t-check.on{background:#2e8b57;color:#fff;font-weight:900;font-size:16px}
+.t-check:hover{background:#e8f5ec}
+.t-num{font-size:18px;font-weight:900;color:#b0bec5;width:20px;text-align:center}
+.t-input{flex:1;border:none;border-bottom:2px solid #b8dfc4;padding:5px 0;font-size:14px;color:#0d2e1a;background:transparent;outline:none;font-weight:500}
+.t-input::placeholder{color:#5a8a6a;font-style:italic}
+.t-input:focus{border-color:#2e8b57}
+
+.rpd-wrap{display:flex;flex-direction:column;gap:12px}
+.rpd-situation{background:#e8f4ff;border:2px solid #4a8abf;border-radius:14px;padding:16px 18px;position:relative}
+.rpd-sit-label{font-size:13px;font-weight:800;color:#0d3a6a;text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+.rpd-sit-sub{font-size:12px;color:#2a5a8a;margin-bottom:10px;font-weight:500}
+.rpd-sit-input{width:100%;background:#fff;border:2px solid #4a8abf;border-radius:10px;padding:10px 12px;color:#0d1f35;font-size:14px;resize:none;min-height:64px;outline:none;font-weight:500}
+.rpd-sit-input:focus{border-color:#1a5c9e}
+
+.rpd-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.rpd-card{border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px;border:2px solid}
+.rpd-card-icon{font-size:28px;line-height:1}
+.rpd-card-label{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.8px}
+.rpd-card-sub{font-size:11px;font-weight:500;margin-bottom:2px}
+.rpd-card textarea{width:100%;background:#fff;border:2px solid;border-radius:10px;padding:9px 11px;font-size:13px;color:#1a1f2e;resize:none;min-height:84px;outline:none;font-weight:500}
+.rpd-card textarea:focus{box-shadow:0 0 0 3px rgba(0,0,0,.08)}
+
+.rpc-thought{background:#f0ebff;border-color:#7c4abf;color:#3a0a7a}
+.rpc-thought textarea{border-color:#7c4abf}
+.rpc-emotion{background:#fff0f5;border-color:#bf4a72;color:#7a0a3a}
+.rpc-emotion textarea{border-color:#bf4a72}
+.rpc-behavior{background:#e8f4ff;border-color:#4a72bf;color:#0a2a7a}
+.rpc-behavior textarea{border-color:#4a72bf}
+
+.rpd-tip{background:#fffbe8;border:2px solid #c8973a;border-radius:14px;padding:14px 18px;position:relative}
+.rpd-tip-label{font-size:13px;font-weight:900;color:#7a4a0a;text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+.rpd-tip-q{font-size:12px;color:#5a3a0a;margin-bottom:10px;font-weight:500;font-style:italic}
+.rpd-tip textarea{width:100%;background:#fff;border:2px solid #c8973a;border-radius:10px;padding:10px 12px;color:#1a1f2e;font-size:13px;resize:none;min-height:60px;outline:none;font-weight:500}
+
+.result-opts{display:flex;gap:10px;margin-bottom:12px}
+.ro-btn{flex:1;padding:14px 8px;border-radius:12px;border:2.5px solid;cursor:pointer;font-weight:800;font-size:14px;background:#fff;transition:all .2s;font-family:inherit}
+.ro-sim{border-color:#0d8a3a;color:#0d6e30}
+.ro-sim.sel,.ro-sim:hover{background:#0d8a3a;color:#fff}
+.ro-parcial{border-color:#c8880a;color:#9a6500}
+.ro-parcial.sel,.ro-parcial:hover{background:#c8880a;color:#fff}
+.ro-nao{border-color:#cc1a1a;color:#aa0a0a}
+.ro-nao.sel,.ro-nao:hover{background:#cc1a1a;color:#fff}
+.ro-frase{border-radius:10px;padding:12px 16px;font-size:13px;font-weight:600;text-align:center;line-height:1.6;display:none;border:2px solid}
+.ro-frase.show{display:block}
+.fs{background:#e8f5ec;color:#0d3a1e;border-color:#2e8b57}
+.fp{background:#fff8e1;color:#5a3a00;border-color:#c8880a}
+.fn{background:#fce8e8;color:#6a0a0a;border-color:#cc1a1a}
+
+.wk-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px;padding-bottom:2rem}
+.btn-pdf{background:#0d1f35;color:#ffd600;border:2px solid #ffd600;border-radius:10px;padding:10px 24px;font-weight:800;font-size:14px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;font-family:inherit}
+.btn-pdf:hover{background:#ffd600;color:#0d1f35}
+
+/* ===== MUSIC PLAYER ===== */
+.music-player{
+  position:fixed;bottom:24px;right:24px;
+  background:linear-gradient(135deg,#0d3a1e 0%,#2e7d45 100%);
+  border-radius:20px;padding:14px 18px;
+  box-shadow:0 8px 32px rgba(0,0,0,.35);
+  display:flex;align-items:center;gap:14px;
+  z-index:8888;min-width:220px;
+  border:2px solid rgba(255,214,0,.35);
+  transition:all .3s;
+}
+.music-player:hover{
+  box-shadow:0 12px 40px rgba(0,0,0,.45);
+  border-color:rgba(255,214,0,.6);
+}
+.music-play-btn{
+  width:44px;height:44px;border-radius:50%;
+  background:#ffd600;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+  transition:all .15s;
+}
+.music-play-btn:hover{transform:scale(1.08);background:#ffe033;}
+.music-info{flex:1;min-width:0;}
+.music-label{font-size:10px;font-weight:900;color:rgba(255,255,255,.7);
+  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;}
+.music-vol-wrap{display:flex;align-items:center;gap:8px;}
+.music-vol-icon{font-size:14px;flex-shrink:0;cursor:pointer;user-select:none;}
+.music-vol-slider{
+  -webkit-appearance:none;appearance:none;
+  flex:1;height:5px;border-radius:3px;
+  background:rgba(255,255,255,.25);outline:none;cursor:pointer;
+}
+.music-vol-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:16px;height:16px;border-radius:50%;
+  background:#ffd600;cursor:pointer;
+  box-shadow:0 1px 4px rgba(0,0,0,.3);
+  transition:transform .15s;
+}
+.music-vol-slider::-webkit-slider-thumb:hover{transform:scale(1.2);}
+.music-vol-slider::-moz-range-thumb{
+  width:16px;height:16px;border-radius:50%;border:none;
+  background:#ffd600;cursor:pointer;
+}
+.music-equalizer{display:flex;align-items:flex-end;gap:2px;height:18px;flex-shrink:0;}
+.eq-bar{width:3px;border-radius:2px;background:#ffd600;opacity:.8;
+  animation:eqAnim 0.8s ease-in-out infinite alternate;}
+.eq-bar:nth-child(1){height:6px;animation-delay:0s;}
+.eq-bar:nth-child(2){height:14px;animation-delay:.15s;}
+.eq-bar:nth-child(3){height:10px;animation-delay:.3s;}
+.eq-bar:nth-child(4){height:18px;animation-delay:.1s;}
+.eq-bar:nth-child(5){height:8px;animation-delay:.25s;}
+.music-equalizer.paused .eq-bar{animation:none;height:3px!important;}
+@keyframes eqAnim{
+  from{transform:scaleY(.4);}
+  to{transform:scaleY(1);}
+}
+
+@media print{
+  body{background:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wk-actions,.no-print,.manual-btn-wrap,.music-player{display:none!important}
+  .wk-header{background:#2e7d45!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wk-sec{box-shadow:none!important;break-inside:avoid;border:2px solid #dde3ea!important}
+  .rpd-card,.rpd-situation,.rpd-tip,.ro-btn,.ro-frase{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rpd-card textarea,.rpd-sit-input,.rpd-tip textarea,.missao-ta,.t-input{
+    border:2px solid #555!important;color:#000!important;background:#fff!important
+  }
+  input,textarea{color:#000!important}
+}
+
+/* ===== MANUAL DE USO ===== */
+.manual-btn-wrap{
+  display:flex;justify-content:flex-end;padding:10px 2rem 0;max-width:820px;margin:0 auto;
+}
+.btn-manual{
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border:1.5px solid rgba(255,255,255,.4);
+  border-radius:8px;padding:7px 18px;font-weight:700;font-size:12.5px;letter-spacing:.6px;
+  cursor:pointer;text-transform:uppercase;font-family:inherit;
+  display:flex;align-items:center;gap:6px;transition:all .2s;
+}
+.btn-manual:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.7);color:#fff;}
+
+/* Overlay */
+.manual-overlay{
+  display:none;position:fixed;inset:0;background:rgba(5,20,10,.72);
+  z-index:9999;align-items:flex-start;justify-content:center;
+  padding:20px;overflow-y:auto;backdrop-filter:blur(3px);
+}
+.manual-overlay.open{display:flex;}
+
+.manual-modal{
+  background:#fff;border-radius:20px;max-width:700px;width:100%;
+  box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden;
+  margin:auto;position:relative;
+}
+
+/* Modal header */
+.manual-modal-hdr{
+  background:linear-gradient(135deg,#0d3a1e 0%,#2e7d45 100%);
+  padding:28px 32px 22px;
+}
+.manual-hdr-badge{
+  display:inline-block;background:#cc1a1a;color:#fff;
+  font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 14px;border-radius:20px;margin-bottom:14px;
+}
+.manual-hdr-title{
+  font-size:26px;font-weight:900;color:#ffd600;
+  letter-spacing:.5px;line-height:1.2;margin-bottom:6px;
+}
+.manual-hdr-sub{
+  color:rgba(255,255,255,.82);font-size:13px;font-weight:500;line-height:1.6;
+}
+
+/* Modal body */
+.manual-modal-body{padding:28px 32px 32px;display:flex;flex-direction:column;gap:20px;}
+
+.manual-bloco{
+  background:#f4fbf6;border:2px solid #b8dfc4;border-radius:14px;
+  padding:18px 20px;
+}
+.manual-bloco.azul{background:#e8f0fe;border-color:#a0b8f8;}
+.manual-bloco.amarelo{background:#fffbe8;border-color:#e8c96a;}
+
+.manual-bloco-title{
+  font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:1px;
+  color:#0d3a1e;margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.manual-bloco.azul .manual-bloco-title{color:#0d2a6a;}
+.manual-bloco.amarelo .manual-bloco-title{color:#5a3a00;}
+
+.manual-bloco p{font-size:13.5px;color:#1a3a2a;line-height:1.7;font-weight:500;}
+.manual-bloco.azul p{color:#0d1f4a;}
+.manual-bloco.amarelo p{color:#3a2a00;}
+
+/* Fluxo clínico */
+.fluxo-row{
+  display:flex;align-items:stretch;gap:0;
+  background:#f0f4f8;border:2px solid #c8d8e8;border-radius:14px;overflow:hidden;
+}
+.fluxo-step{
+  flex:1;padding:14px 12px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  position:relative;
+}
+.fluxo-step:not(:last-child)::after{
+  content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);
+  font-size:18px;font-weight:900;color:#2e7d45;z-index:2;
+}
+.fluxo-step:nth-child(1){background:#e8f5ec;}
+.fluxo-step:nth-child(2){background:#e8f0fe;}
+.fluxo-step:nth-child(3){background:#f3e8ff;}
+.fluxo-ico{font-size:22px;line-height:1;}
+.fluxo-label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.8px;color:#1a1f2e;line-height:1.3;}
+.fluxo-sub{font-size:10px;color:#4a5a6a;font-weight:600;}
+
+/* Passo a passo */
+.manual-steps{display:flex;flex-direction:column;gap:12px;}
+.manual-step{
+  display:flex;align-items:flex-start;gap:14px;
+  background:#fff;border:2px solid #dde3ea;border-radius:12px;padding:14px 16px;
+}
+.step-num{
+  width:34px;height:34px;border-radius:50%;background:#2e7d45;color:#fff;
+  font-weight:900;font-size:16px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.step-content{}
+.step-title{font-size:13px;font-weight:900;color:#0d3a1e;margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px;}
+.step-desc{font-size:13px;color:#2a4a3a;line-height:1.65;font-weight:500;}
+
+/* Close btn */
+.manual-close{
+  position:absolute;top:16px;right:18px;
+  background:rgba(255,255,255,.2);border:none;color:#fff;
+  width:32px;height:32px;border-radius:50%;font-size:18px;line-height:1;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-weight:900;transition:background .15s;
+}
+.manual-close:hover{background:rgba(255,255,255,.4);}
+
+.manual-footer{
+  margin-top:4px;background:#0d3a1e;border-radius:10px;
+  padding:12px 16px;text-align:center;
+  font-size:12px;color:rgba(255,255,255,.8);font-weight:600;line-height:1.6;
+}
+</style>
+</head>
+<body>
+
+<div class="wk-header">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:12px;">
+    <div id="musicPlayer" style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);border-radius:10px;padding:7px 14px;">
+      <button id="playBtn" onclick="toggleMusic()" title="Tocar / Pausar" style="background:#ffd600;border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:900;transition:all .15s;">▶</button>
+      <div style="display:flex;align-items:center;gap:7px;">
+        <span id="volIcon" onclick="toggleMute()" title="Mudo" style="font-size:15px;cursor:pointer;user-select:none;flex-shrink:0;">🔈</span>
+        <input id="volSlider" type="range" min="0" max="100" value="30" step="1" oninput="setVolume(this.value)" title="Volume"
+          style="-webkit-appearance:none;appearance:none;width:90px;height:5px;border-radius:3px;background:rgba(255,255,255,.3);outline:none;cursor:pointer;">
+      </div>
+      <div id="equalizer" class="music-equalizer paused" style="display:flex;align-items:flex-end;gap:2px;height:16px;">
+        <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+      </div>
+    </div>
+    <button class="btn-manual" onclick="document.getElementById('manualOverlay').classList.add('open')">
+      📖 Manual de Uso
+    </button>
+  </div>
+  <div class="wk-hdr-logo">
+    <img src="https://livia-430118842660-us-east-1-an.s3.us-east-1.amazonaws.com/Logo.png" alt="Logo">
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:18px;gap:10px">
+    <h1 style="color:#ffd600;font-size:32px;font-weight:900;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,.2)">📋 Meu Plano de Jogo</h1>
+    <p style="color:rgba(255,255,255,.75);font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:-4px;">Plano de Ação</p>
+    <p style="color:rgba(255,255,255,.92);font-size:14px;font-weight:600;font-style:italic;max-width:480px;line-height:1.6;">💡 Quais atitudes podem ajudar você a avançar para o próximo nível?</p>
+  </div>
+  <div class="wk-meta">
+    <div class="wk-field"><label>Nome</label><input type="text" id="wk-nome" placeholder="Nome do paciente"></div>
+    <div class="wk-field"><label>Fase atual</label><input type="text" id="wk-fase" placeholder="Ex: ⚽ Oitavas"></div>
+    <div class="wk-field"><label>Data</label><input type="date" id="wk-data"></div>
+    <div class="wk-field"><label>Desafio da semana</label><input type="text" id="wk-desafio" placeholder="Desafio desta fase"></div>
+  </div>
+</div>
+
+<!-- ===== MODAL MANUAL DE USO ===== -->
+<div class="manual-overlay" id="manualOverlay" onclick="fecharManual(event)">
+  <div class="manual-modal">
+    <div class="manual-modal-hdr">
+      <button class="manual-close" onclick="document.getElementById('manualOverlay').classList.remove('open')">✕</button>
+      <div class="manual-hdr-badge">🔒 Apenas para profissionais — não ler com o paciente</div>
+      <div class="manual-hdr-title">📋 Manual de Uso</div>
+      <div class="manual-hdr-sub">Guia clínico completo para aplicação do recurso <strong>Meu Plano de Jogo</strong></div>
+    </div>
+    <div class="manual-modal-body">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="background:#e8f5ec;border:2px solid #2e8b57;border-radius:12px;padding:14px 16px;">
+          <div style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;color:#2e7d45;margin-bottom:4px;">👦 Faixa Etária</div>
+          <div style="font-size:16px;font-weight:900;color:#0d3a1e;">A partir de 12 anos</div>
+        </div>
+        <div style="background:#e8f0fe;border:2px solid #4a72bf;border-radius:12px;padding:14px 16px;">
+          <div style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;color:#2a5a9e;margin-bottom:4px;">🎯 Objetivo Terapêutico</div>
+          <div style="font-size:15px;font-weight:900;color:#0d1f4a;">Construção de plano de ação</div>
+        </div>
+      </div>
+
+      <div class="manual-bloco">
+        <div class="manual-bloco-title">📌 O que é este recurso?</div>
+        <p>O <strong>Meu Plano de Jogo</strong> é uma estrutura de <strong>plano de ação semanal</strong> para uso em psicoterapia com adolescentes. Ele pode ser preenchido semanalmente, nas sessões, e inclui um <strong>registro diário de pensamentos</strong> (Replay da Jogada) para que o adolescente complete em casa ao longo da semana e traga na sessão seguinte.</p>
+      </div>
+
+      <div class="manual-bloco amarelo">
+        <div class="manual-bloco-title">💡 Sugestão de uso complementar</div>
+        <p>Este recurso é <strong>complementar ao jogo "Chaveamento da Minha Vida"</strong>. Após construir a hierarquia de desafios com o adolescente, chegou a hora de pensar <em>como colocar esses desafios em prática</em> — e é exatamente aí que o Plano de Jogo entra.</p>
+      </div>
+
+      <div class="manual-bloco azul">
+        <div class="manual-bloco-title">🗺️ Siga essa ordem de raciocínio clínico</div>
+        <div class="fluxo-row">
+          <div class="fluxo-step">
+            <div class="fluxo-ico">📋</div>
+            <div class="fluxo-label">Ficha Tática</div>
+            <div class="fluxo-sub">Identificação de objetivos terapêuticos</div>
+          </div>
+          <div class="fluxo-step">
+            <div class="fluxo-ico">🏆</div>
+            <div class="fluxo-label">Chaveamento da Minha Vida</div>
+            <div class="fluxo-sub">Hierarquização de exposição</div>
+          </div>
+          <div class="fluxo-step">
+            <div class="fluxo-ico">⚽</div>
+            <div class="fluxo-label">Meu Plano de Jogo</div>
+            <div class="fluxo-sub">Passo a passo do que fazer na semana</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#0d3a1e;margin-bottom:12px;">⚙️ Passo a passo de aplicação</div>
+        <div class="manual-steps">
+          <div class="manual-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-title">Preencha o cabeçalho com o paciente</div>
+              <div class="step-desc">Registre o nome do paciente, a data, em qual <strong>fase do Chaveamento</strong> ele está e qual será o <strong>desafio desta semana</strong>. Isso ancora o plano dentro da progressão terapêutica já construída juntos.</div>
+            </div>
+          </div>
+          <div class="manual-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-title">Construa os Mini Treinos com detalhes concretos</div>
+              <div class="step-desc">Preencha o passo a passo do que ele deverá fazer na semana para conseguir realizar o desafio. Descreva de forma <strong>realista e detalhada</strong> — o adolescente precisa saber exatamente o que fazer, onde, quando e como. Quanto mais específico, melhor.</div>
+            </div>
+          </div>
+          <div class="manual-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <div class="step-title">Construa o plano junto com o paciente</div>
+              <div class="step-desc">Sempre pergunte ao adolescente o que ele acha do plano de ação. Esse material <strong>precisa ser construído em colaboração</strong> — um plano que o paciente ajudou a criar tem muito mais chance de ser seguido.</div>
+            </div>
+          </div>
+          <div class="manual-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <div class="step-title">Explique o Registro Diário (Replay da Jogada)</div>
+              <div class="step-desc">Oriente o adolescente que a parte do <strong>Replay da Jogada</strong> deve ser preenchida em casa, durante a semana, quando ele tentar o desafio. Ele traz o registro na próxima sessão para vocês entenderem juntos o que aconteceu — como em um jogo de futebol, onde o técnico analisa as jogadas para melhorar no próximo treino.</div>
+            </div>
+          </div>
+          <div class="manual-step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <div class="step-title">Salve em PDF e envie ao paciente</div>
+              <div class="step-desc">Ao final da sessão, clique em <strong>"Salvar PDF"</strong> para baixar o material preenchido. Envie pelo <strong>WhatsApp</strong> para o adolescente (ou responsável), para que ele tenha o plano consigo durante a semana.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="manual-footer">
+        🔒 Este manual é de uso exclusivo do profissional. Não compartilhe com o paciente.
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="wk-body">
+
+  <div class="wk-sec">
+    <div class="wk-sec-hdr">
+      <div class="wk-icon" style="background:#e8f5ec">🎯</div>
+      <span class="wk-sec-title">Missão da Semana</span>
+      <span class="wk-sec-sub">O que você vai tentar fazer?</span>
+    </div>
+    <div class="wk-sec-body">
+      <textarea class="missao-ta" placeholder="Escreva em uma frase o que vai tentar fazer essa semana..."></textarea>
+    </div>
+  </div>
+
+  <div class="wk-sec">
+    <div class="wk-sec-hdr">
+      <div class="wk-icon" style="background:#fff8e1">⚽</div>
+      <span class="wk-sec-title">Mini Treinos</span>
+      <span class="wk-sec-sub">Escreva o passo a passo do que você pode fazer</span>
+    </div>
+    <div class="wk-sec-body">
+      <div class="treino-row">
+        <div class="t-check" onclick="togCheck(this)"></div>
+        <span class="t-num">1</span>
+        <input class="t-input" type="text" placeholder="Descreva a prática...">
+      </div>
+      <div class="treino-row">
+        <div class="t-check" onclick="togCheck(this)"></div>
+        <span class="t-num">2</span>
+        <input class="t-input" type="text" placeholder="Descreva a prática...">
+      </div>
+      <div class="treino-row">
+        <div class="t-check" onclick="togCheck(this)"></div>
+        <span class="t-num">3</span>
+        <input class="t-input" type="text" placeholder="Descreva a prática...">
+      </div>
+    </div>
+  </div>
+
+  <div class="wk-sec">
+    <div class="wk-sec-hdr">
+      <div class="wk-icon" style="background:#e8f0fe">🧠</div>
+      <span class="wk-sec-title">Replay da Jogada</span>
+      <span class="wk-sec-sub">O que aconteceu quando você tentou?</span>
+    </div>
+    <div class="wk-sec-body">
+      <div class="rpd-wrap">
+        <div class="rpd-situation">
+          <div class="rpd-sit-label">🏟️ Situação</div>
+          <div class="rpd-sit-sub">O que aconteceu? Onde estava? O que rolou?</div>
+          <textarea class="rpd-sit-input" placeholder=""></textarea>
+        </div>
+        <div class="rpd-trio">
+          <div class="rpd-card rpc-thought">
+            <div class="rpd-card-icon">🧠</div>
+            <div class="rpd-card-label">Pensamento</div>
+            <div class="rpd-card-sub">O que passou na sua cabeça?</div>
+            <textarea placeholder=""></textarea>
+          </div>
+          <div class="rpd-card rpc-emotion">
+            <div class="rpd-card-icon">❤️</div>
+            <div class="rpd-card-label">Emoção</div>
+            <div class="rpd-card-sub">O que você sentiu?</div>
+            <textarea placeholder=""></textarea>
+          </div>
+          <div class="rpd-card rpc-behavior">
+            <div class="rpd-card-icon">⚡</div>
+            <div class="rpd-card-label">Comportamento</div>
+            <div class="rpd-card-sub">O que você fez?</div>
+            <textarea placeholder=""></textarea>
+          </div>
+        </div>
+        <div class="rpd-tip">
+          <div class="rpd-tip-label">🎯 Pensamento alternativo</div>
+          <div class="rpd-tip-q">O que você diria a um amigo que passou por isso?</div>
+          <textarea placeholder=""></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wk-sec">
+    <div class="wk-sec-hdr">
+      <div class="wk-icon" style="background:#f3e8ff">🏆</div>
+      <span class="wk-sec-title">Resultado da Rodada</span>
+      <span class="wk-sec-sub">Como foi essa semana?</span>
+    </div>
+    <div class="wk-sec-body">
+      <div class="result-opts">
+        <button class="ro-btn ro-sim"     onclick="selectResult('sim',this)">✅ Consegui!</button>
+        <button class="ro-btn ro-parcial" onclick="selectResult('parcial',this)">⚠️ Parcialmente</button>
+        <button class="ro-btn ro-nao"     onclick="selectResult('nao',this)">❌ Ainda não</button>
+      </div>
+      <div class="ro-frase fs" id="frase-sim">🏆 <strong>Gol!</strong> Você enfrentou e avançou. Cada vitória pequena constrói o campeão que você está se tornando!</div>
+      <div class="ro-frase fp" id="frase-parcial">⚽ <strong>Todo treino conta para chegar à final.</strong> Você já está no campo — isso é o mais difícil. Continue!</div>
+      <div class="ro-frase fn" id="frase-nao">💪 <strong>Nenhum campeão desistiu na primeira dificuldade.</strong> Ajustamos o plano e voltamos mais fortes!</div>
+    </div>
+  </div>
+
+  <div class="wk-actions">
+    <button class="btn-pdf" onclick="window.print()">🖨 Salvar PDF</button>
+  </div>
+</div>
+
+<!-- ===== AUDIO ===== -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://livia-430118842660-us-east-1-an.s3.us-east-1.amazonaws.com/M%C3%BAsica+Esportiva++Sem+Direitos+Autorais+-+Cl%C3%ADnica+de+Relaxamento+Musical+(youtube).mp3" type="audio/mpeg">
+</audio>
+
+<script>
+var audio=document.getElementById('bgMusic');
+var playBtn=document.getElementById('playBtn');
+var volSlider=document.getElementById('volSlider');
+var volIcon=document.getElementById('volIcon');
+var eq=document.getElementById('equalizer');
+var isPlaying=false;
+var lastVol=30;
+
+audio.volume=0.30;
+
+function toggleMusic(){
+  if(isPlaying){
+    audio.pause();
+    playBtn.textContent='▶';
+    eq.classList.add('paused');
+    isPlaying=false;
+  } else {
+    audio.play().then(function(){
+      playBtn.textContent='⏸';
+      eq.classList.remove('paused');
+      isPlaying=true;
+    }).catch(function(){});
+  }
+}
+
+function setVolume(val){
+  var v=val/100;
+  audio.volume=v;
+  lastVol=parseInt(val);
+  audio.muted=false;
+  updateVolIcon(v);
+}
+
+function toggleMute(){
+  if(audio.muted||audio.volume===0){
+    audio.muted=false;
+    var restoreVal=lastVol>0?lastVol:30;
+    volSlider.value=restoreVal;
+    audio.volume=restoreVal/100;
+    updateVolIcon(restoreVal/100);
+  } else {
+    lastVol=parseInt(volSlider.value);
+    audio.muted=true;
+    updateVolIcon(0);
+  }
+}
+
+function updateVolIcon(v){
+  if(audio.muted||v===0) volIcon.textContent='🔇';
+  else if(v<0.15) volIcon.textContent='🔈';
+  else if(v<0.6) volIcon.textContent='🔉';
+  else volIcon.textContent='🔊';
+}
+
+function fecharManual(e){
+  if(e.target===document.getElementById('manualOverlay')){
+    document.getElementById('manualOverlay').classList.remove('open');
+  }
+}
+function togCheck(el){
+  el.classList.toggle('on');
+  el.textContent=el.classList.contains('on')?'✓':'';
+}
+
+function selectResult(type,btn){
+  document.querySelectorAll('.ro-btn').forEach(function(b){b.classList.remove('sel');});
+  btn.classList.add('sel');
+  document.querySelectorAll('.ro-frase').forEach(function(f){f.classList.remove('show');});
+  document.getElementById('frase-'+type).classList.add('show');
+}
+</script>
+</body>
+</html>
